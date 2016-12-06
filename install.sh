@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
+echo
+echo "Installing Gitlinks CLI, Hermes"
+
+INSTALL_FOLDER=~/.gitlinks
+
 current_dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
-if [ ! -d "~/.gitlinks" ]; then
-	mkdir ~/.gitlinks
+
+if [ ! -d "$INSTALL_FOLDER" ]; then
+	mkdir $INSTALL_FOLDER
 fi
 
-cd ~/.gitlinks
-curl -O  https://gitlinks.github.io/cl-bins/latest/hermes-cl.tar.gz
-tar xzf hermes-cl.tar.gz
+cd "$INSTALL_FOLDER"
+curl -OsSf https://gitlinks.github.io/cl-bins/latest/hermes-cl.tar.gz
+tar -xvzf $INSTALL_FOLDER/hermes-cl.tar.gz
 cd $current_dir
+
+echo
+echo "run with $INSTALL_FOLDER/hermes-cl.sh "
+echo
