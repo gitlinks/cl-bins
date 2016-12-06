@@ -17,5 +17,5 @@ tar -xzf $INSTALL_FOLDER/hermes-cl.tar.gz
 cd $current_dir
 
 echo
-echo "run with $INSTALL_FOLDER/hermes-cl.sh "
+echo "run with $INSTALL_FOLDER/hermes-rust-ci"
 echo
