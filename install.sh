@@ -13,7 +13,7 @@ fi
 
 cd "$INSTALL_FOLDER"
 curl -OsSf https://gitlinks.github.io/cl-bins/latest/hermes-cl.tar.gz
-tar -xvzf $INSTALL_FOLDER/hermes-cl.tar.gz
+tar -xzf $INSTALL_FOLDER/hermes-cl.tar.gz
 cd $current_dir
 
 echo
