@@ -3,6 +3,9 @@
 echo
 echo "Installing Gitlinks CLI, Hermes"
 
+# temporary fix for missing dependency
+apt-get install -qqy libhttp-parser2.1
+
 INSTALL_FOLDER=~/.gitlinks
 
 current_dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
