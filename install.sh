@@ -19,6 +19,9 @@ cd $current_dir
 echo
 echo "Retrieving system info:"
 echo
+echo "os-release:"
+cat /etc/os-release || true
+echo
 echo "ostype:"
 echo ${OSTYPE}
 echo
