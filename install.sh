@@ -17,5 +17,21 @@ tar -xzf $INSTALL_FOLDER/hermes-cl.tar.gz
 cd $current_dir
 
 echo
-echo "run with $INSTALL_FOLDER/hermes-rust-ci"
+echo "Retrieving system info:"
+echo
+echo "uname:"
+uname -a
+echo
+echo "ldd:"
+ldd $INSTALL_FOLDER"/hermes-rust-ci"
+echo
+echo "ldconfig:"
+ldconfig -p | grep libssl
+ldconfig -p | grep libz
+echo
+
+echo
+echo "Done!"
+echo
+echo "Run with: $INSTALL_FOLDER/hermes-rust-ci"
 echo
