@@ -19,6 +19,9 @@ cd $current_dir
 echo
 echo "Retrieving system info:"
 echo
+echo "ostype:"
+echo ${OSTYPE}
+echo
 echo "uname:"
 uname -a
 echo
