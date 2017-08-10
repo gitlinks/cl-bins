@@ -20,20 +20,30 @@ echo
 echo "Retrieving system info:"
 echo
 echo "os-release:"
-cat /etc/os-release || true
+for i in $(ls /etc/*release); do echo ===$i===; cat $i; done || true
 echo
 echo "ostype:"
 echo ${OSTYPE}
 echo
+echo
+echo "/etc/issue:"
+cat /etc/issue || true
+echo
+echo "hostnamectl:"
+hostnamectl || true
+echo
+echo "lsb_release:"
+lsb_release -a || true
+echo
 echo "uname:"
-uname -a
+uname -a || true
 echo
 echo "ldd:"
-ldd $INSTALL_FOLDER"/hermes-rust-ci"
+ldd $INSTALL_FOLDER"/hermes-rust-ci" || true
 echo
 echo "ldconfig:"
-ldconfig -p | grep libssl
-ldconfig -p | grep libz
+ldconfig -p | grep libssl || true
+ldconfig -p | grep libz || true
 echo
 
 echo
