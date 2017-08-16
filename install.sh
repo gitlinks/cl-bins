@@ -3,7 +3,7 @@
 echo
 echo "Installing Gitlinks CLI, Hermes"
 echo
-echo "DEPRECATED! Use 'install_and_run.sh' instead!"
+echo "DEPRECATED! Use 'install-and-run.sh' instead!"
 echo
 
 INSTALL_FOLDER=~/.gitlinks
