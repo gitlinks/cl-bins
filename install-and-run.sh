@@ -94,6 +94,10 @@ install () {
     rm "${INSTALL_FOLDER}"/${IMAGE_TGZ_NAME}
 
     cd "${PREVIOUS_DIR}"
+
+    echo
+    echo "* Installation finished"
+    echo
 }
 
 # run installed binary
