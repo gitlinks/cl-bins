@@ -105,6 +105,6 @@ run () {
     ${IMAGE_BINARY_PATH}
 }
 
-os_debug
 install
+os_debug
 run
