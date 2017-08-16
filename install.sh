@@ -2,19 +2,23 @@
 
 echo
 echo "Installing Gitlinks CLI, Hermes"
+echo
+echo "DEPRECATED! Use 'install_and_run.sh' instead!"
+echo
 
 INSTALL_FOLDER=~/.gitlinks
 
-current_dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+CURRENT_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 if [ ! -d "$INSTALL_FOLDER" ]; then
-	mkdir $INSTALL_FOLDER
+	mkdir "$INSTALL_FOLDER"
 fi
 
 cd "$INSTALL_FOLDER"
 curl -OsSf https://gitlinks.github.io/cl-bins/latest/hermes-cl.tar.gz
-tar -xzf $INSTALL_FOLDER/hermes-cl.tar.gz
-cd $current_dir
+tar -xzf "$INSTALL_FOLDER"/hermes-cl.tar.gz
+rm "$INSTALL_FOLDER"/hermes-cl.tar.gz
+cd "$CURRENT_DIR"
 
 echo
 echo "Retrieving system info:"
@@ -39,7 +43,7 @@ echo "uname:"
 uname -a || true
 echo
 echo "ldd:"
-ldd $INSTALL_FOLDER"/hermes-rust-ci" || true
+ldd "$INSTALL_FOLDER""/hermes-rust-ci" || true
 echo
 echo "ldconfig:"
 ldconfig -p | grep libssl || true
