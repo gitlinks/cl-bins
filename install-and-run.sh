@@ -11,7 +11,7 @@ IMAGE_BINARY_PATH=${INSTALL_FOLDER}/${IMAGE_BINARY_NAME}
 
 
 # os info output, for analysing os-related issues
-function os-debug {
+os-debug () {
 
     echo
     echo "* Retrieving operating system info:"
@@ -79,7 +79,7 @@ function os-debug {
 }
 
 # install binary
-function install {
+install () {
 
     echo
     echo "* Installing Gitlinks CLI, Hermes"
@@ -104,7 +104,7 @@ function install {
 }
 
 # run installed binary
-function run {
+run () {
 
     echo
     echo "* Running Gitlinks CLI, Hermes"
