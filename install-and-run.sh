@@ -11,8 +11,7 @@ IMAGE_BINARY_PATH=${INSTALL_FOLDER}/${IMAGE_BINARY_NAME}
 
 
 # os info output, for analysing os-related issues
-os-debug () {
-
+os_debug () {
     echo
     echo "* Retrieving operating system info:"
     echo
@@ -80,7 +79,6 @@ os-debug () {
 
 # install binary
 install () {
-
     echo
     echo "* Installing Gitlinks CLI, Hermes"
     echo
@@ -96,28 +94,17 @@ install () {
     rm "${INSTALL_FOLDER}"/${IMAGE_TGZ_NAME}
 
     cd "${PREVIOUS_DIR}"
-
-    echo
-    echo "* Installation finished. Binary was installed in ${IMAGE_BINARY_PATH}"
-    echo
-
 }
 
 # run installed binary
 run () {
-
     echo
     echo "* Running Gitlinks CLI, Hermes"
     echo
 
     ${IMAGE_BINARY_PATH}
-
-    echo
-    echo "* Finished running Gitlinks CLI, Hermes"
-    echo
-
 }
 
-os-debug
+os_debug
 install
 run
