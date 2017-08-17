@@ -48,7 +48,7 @@ os_debug () {
 
     echo
     echo "yum:"
-    yum version || true
+    yum --version || true
     echo
 
     echo
@@ -75,6 +75,12 @@ os_debug () {
     echo "openssl:"
     openssl version || true
     echo
+
+    echo
+    echo "libc:"
+    ldd --version || true
+    echo
+
 }
 
 # install binary
