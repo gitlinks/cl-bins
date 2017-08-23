@@ -8,7 +8,7 @@ echo
 
 INSTALL_FOLDER=~/.gitlinks
 
-CURRENT_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+SCRIPT_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 if [ ! -d "$INSTALL_FOLDER" ]; then
 	mkdir "$INSTALL_FOLDER"
@@ -18,7 +18,7 @@ cd "$INSTALL_FOLDER"
 curl -OsSf https://gitlinks.github.io/cl-bins/latest/hermes-cl.tar.gz
 tar -xzf "$INSTALL_FOLDER"/hermes-cl.tar.gz
 rm "$INSTALL_FOLDER"/hermes-cl.tar.gz
-cd "$CURRENT_DIR"
+cd "$SCRIPT_DIR"
 
 echo
 echo "Retrieving system info:"

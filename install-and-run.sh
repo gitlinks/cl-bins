@@ -2,7 +2,7 @@
 
 
 INSTALL_FOLDER=~/.gitlinks
-CURRENT_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+SCRIPT_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 IMAGE_TGZ_NAME=hermes-cl.tar.gz
 
