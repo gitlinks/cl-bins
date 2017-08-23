@@ -13,7 +13,7 @@ is_debian_based() {
     command -v apt-get >/dev/null 2>&1
     CHECK_APT_GET=$?
 
-    if (( ${CHECK_DPKG} == 0 && ${CHECK_APT_GET} == 0 ))
+    if [ "${CHECK_DPKG}" -eq 0 ] && [ "${CHECK_APT_GET}" -eq 0 ]
     then
         echo true
     else
@@ -53,7 +53,7 @@ install_rpm() {
 }
 
 get_architecture_specifier() {
-    if [ $(uname -m) == "x86_64" ]
+    if [ $(uname -m) = "x86_64" ]
     then
         echo "x64"
     else
@@ -140,10 +140,10 @@ os_debug () {
     echo
 }
 
-if [ $(is_debian_based) == true ]
+if [ $(is_debian_based) ]
 then
     install_deb
-elif [ $(is_redhat_based) == true ]
+elif [ $(is_redhat_based) ]
 then
     install_rpm
 else
