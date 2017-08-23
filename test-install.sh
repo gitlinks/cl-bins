@@ -38,9 +38,9 @@ install_deb() {
     DEB_NAME=hermes-rust-ci_latest_${ARCH}.deb
 
     cd /tmp
-    curl -OsSf https://gitlinks.github.io/cl-bins/latest/${DEB_NAME}.deb
+    curl -OsSf https://gitlinks.github.io/cl-bins/latest/${DEB_NAME}
     sudo dpkg -i "${DEB_NAME}"
-    sudo apt-get -fy install
+    sudo apt-get -fyq install
 }
 
 install_rpm() {
