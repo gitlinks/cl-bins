@@ -39,6 +39,7 @@ install_deb() {
 
     cd /tmp
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${DEB_NAME}
+    sudo apt-get update
     sudo dpkg -i "${DEB_NAME}"
     sudo apt-get -fyq install
 }
@@ -110,6 +111,11 @@ os_debug () {
     echo
 
     echo
+    echo "apt-get:"
+    apt-get --version || true
+    echo
+
+    echo
     echo "dpkg:"
     dpkg --version || true
     echo
@@ -140,8 +146,6 @@ os_debug () {
     echo
 }
 
-os_debug
-
 if [ $(is_debian_based) ]
 then
     install_deb
@@ -155,5 +159,5 @@ else
     exit 1
 fi
 
-
+os_debug
 check_installation
