@@ -140,6 +140,8 @@ os_debug () {
     echo
 }
 
+os_debug
+
 if [ $(is_debian_based) ]
 then
     install_deb
