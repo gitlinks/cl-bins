@@ -41,7 +41,9 @@ install_deb() {
 
     cd /tmp
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${DEB_NAME}
+
     sudo apt-get update
+    sudo apt-get remove -y hermes-rust-ci || true
     sudo dpkg -i "${DEB_NAME}"
     sudo apt-get -fyq install
 }
@@ -52,6 +54,8 @@ install_rpm() {
 
     cd /tmp
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${RPM_NAME}
+
+    sudo yum remove -y hermes-rust-ci
     sudo yum install -y "${RPM_NAME}"
 }
 
