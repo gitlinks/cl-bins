@@ -78,6 +78,11 @@ os_debug () {
     echo
 
     echo
+    echo "whoami:"
+    whoami || true
+    echo
+
+    echo
     echo "os-release:"
     for i in $(ls /etc/*release); do echo ===$i===; cat $i; done || true
     echo
