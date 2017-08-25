@@ -36,6 +36,8 @@ is_redhat_based() {
 }
 
 install_deb() {
+    sudo apt-get remove -y hermes-rust-ci || true
+
     ARCH=$(get_architecture_specifier)
     DEB_NAME=hermes-rust-ci_latest_${ARCH}.deb
 
@@ -43,19 +45,19 @@ install_deb() {
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${DEB_NAME}
 
     sudo apt-get update
-    sudo apt-get remove -y hermes-rust-ci || true
     sudo dpkg -i "${DEB_NAME}"
     sudo apt-get -fyq install
 }
 
 install_rpm() {
+    sudo yum remove -y hermes-rust-ci || true
+
     ARCH=$(get_architecture_specifier)
     RPM_NAME=hermes-rust-ci_latest_${ARCH}.rpm
 
     cd /tmp
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${RPM_NAME}
 
-    sudo yum remove -y hermes-rust-ci
     sudo yum install -y "${RPM_NAME}"
 }
 
