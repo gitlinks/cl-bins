@@ -15,10 +15,8 @@ is_debian_based() {
 
     if [ "${CHECK_DPKG}" -eq 0 ] && [ "${CHECK_APT_GET}" -eq 0 ]
     then
-        >&2 echo "echoing true"
         echo true
     else
-        >&2 echo "echoing false"
         echo false
     fi
 }
