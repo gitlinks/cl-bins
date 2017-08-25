@@ -148,11 +148,11 @@ os_debug () {
     echo
 }
 
-if [ $(is_debian_based) ]
+if [ $(is_debian_based) = true ]
 then
     echo "Detected debian-based OS. Installing using dpkg and apt-get"
     install_deb
-elif [ $(is_redhat_based) ]
+elif [ $(is_redhat_based) = true ]
 then
     echo "Detected redhat-based OS. Installing using yum"
     install_rpm
