@@ -52,7 +52,7 @@ install_rpm() {
 
     cd /tmp
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${RPM_NAME}
-    sudo yum install "${RPM_NAME}"
+    sudo yum install -y "${RPM_NAME}"
 }
 
 get_architecture_specifier() {
