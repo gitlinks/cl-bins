@@ -1,5 +1,7 @@
 # Before first installation
 
+## Root access for yum or apt-get + dpkg
+
 Our install script will use your OS package manager to install hermes command line utility. In order to do that, user "jenkins" must be allowed to execute yum or dpkg+apt-get as superuser.
 
 Default Jenkins configuration doesn't give it access to sudo, though.
