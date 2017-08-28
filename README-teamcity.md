@@ -11,7 +11,7 @@ Default Teamcity configuration may not allow it, though.
         * `echo Gitlinks user: $(whoami)`
     * username will now show up in the build log
     * username suggested by the official installation guide is `tcagent`, and we'll use this name in this document  
-1. login as root on your Teamcity agent(s)
+1. login as `root` on your Teamcity agent(s)
 1. check whether `sudo` is installed: 
 	* `which sudo`
 1. if it's not, install it:

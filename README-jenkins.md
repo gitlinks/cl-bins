@@ -6,7 +6,7 @@ Our install script will use your OS package manager to install hermes command li
 
 Default Jenkins configuration doesn't give it access to sudo, though.
 
-1. login as root on your Jenkins server or agent(s)
+1. login as `root` on your Jenkins server or agent(s)
 1. check whether 'sudo' is installed: 
 	* `which sudo`
 1. if it's not, install it:
