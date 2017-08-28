@@ -54,7 +54,7 @@ install_rpm() {
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/${RPM_NAME}
 
     sudo yum remove -y hermes-rust-ci
-    sudo yum install -y "${RPM_NAME}"
+    sudo yum install --nogpgcheck -y "${RPM_NAME}"
 }
 
 get_architecture_specifier() {
