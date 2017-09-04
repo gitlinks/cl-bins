@@ -43,8 +43,9 @@ The "bad" case will happen if:
 
 Follow those steps to ensure sources are checked out by the agent:
 1. make sure agent-side checkout is set
-    * in Teamcity go to:    
+    * in Teamcity go to:
         * `Build 
+        -> Edit Configuration Settings 
         -> Version Control Settings 
         -> (Show advanced options) 
         -> VCS checkout mode`
