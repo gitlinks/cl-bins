@@ -10,7 +10,7 @@ Default Teamcity configuration may not allow it, though.
     * add a command line build step to your build configuration:
         * `echo Gitlinks user: $(whoami)`
     * username will now show up in the build log
-    * username suggested by the official installation guide is `tcagent`, and we'll use this name in this document  
+    * username suggested by the official installation guide is `tcagent`, and we'll use this name in this document
 1. login as `root` on your Teamcity agent(s)
 1. check whether `sudo` is installed: 
 	* `which sudo`
@@ -21,8 +21,20 @@ Default Teamcity configuration may not allow it, though.
 	* `grep -c '#includedir /etc/sudoers.d' /etc/sudoers` should return "1"
 1. if it' not present, use `visudo` to add it at the end of the file (or any other editor, if you're feeling confident that you won't break anything)
 1. specify permissions for user `tcagent` (replace "tcagent" with your user name from step #1 if it's different!)
-	* `echo "tcagent ALL=(ALL) NOPASSWD: $(which yum)" > /etc/sudoers.d/teamcity` - for redhat-based OS
-	* `echo "tcagent ALL=(ALL) NOPASSWD: $(which dpkg) , $(which apt-get)" > /etc/sudoers.d/teamcity` - for debian-based OS
+	* for redhat-based OS:
+	```
+	cat <<EOT > /etc/sudoers.d/jenkins
+	tcagent ALL=(ALL) NOPASSWD: $(which yum)
+	Defaults:jenkins !requiretty
+	EOT
+	```
+	* for debian-based OS:
+	```
+	cat <<EOT > /etc/sudoers.d/jenkins
+	tcagent ALL=(ALL) NOPASSWD: $(which dpkg) , $(which apt-get)
+	Defaults:jenkins !requiretty
+	EOT
+	```
 1. you're done!
 
 ## Agent-side sources checkout for git metadata

@@ -16,6 +16,19 @@ Default Jenkins configuration doesn't give it access to sudo, though.
 	* `grep -c '#includedir /etc/sudoers.d' /etc/sudoers` should return "1"
 1. if it' not present, use `visudo` to add it at the end of the file (or any other editor, if you're feeling confident that you won't break anything)
 1. specify permissions for user `jenkins`
-	* `echo "jenkins ALL=(ALL) NOPASSWD: $(which yum)" > /etc/sudoers.d/jenkins` - for redhat-based OS
-	* `echo "jenkins ALL=(ALL) NOPASSWD: $(which dpkg) , $(which apt-get)" > /etc/sudoers.d/jenkins` - for debian-based OS
+	* for redhat-based OS:
+	```
+	cat <<EOT > /etc/sudoers.d/jenkins
+	jenkins ALL=(ALL) NOPASSWD: $(which yum)
+	Defaults:jenkins !requiretty
+	EOT
+	``` 
+	* for debian-based OS:
+	```
+	cat <<EOT > /etc/sudoers.d/jenkins
+	jenkins ALL=(ALL) NOPASSWD: $(which dpkg) , $(which apt-get)
+	Defaults:jenkins !requiretty
+	EOT
+	```
 1. you're done!
+
