@@ -34,35 +34,55 @@ is_redhat_based() {
 }
 
 install_deb() {
-    ARCH=$(get_architecture_specifier)
-    DEB_NAME=hermes-rust-ci_latest_${ARCH}.deb
-
     cd /tmp
-    curl -OsSf https://gitlinks.github.io/cl-bins/latest/${DEB_NAME}
+
+    ARCH_X_SPEC=$(get_architecture_x_specifier)
+    ARCH_SPEC=$(get_architecture_specifier)
+
+    HERMES_DEB_NAME=hermes-rust-ci_latest_${ARCH_X_SPEC}.deb
+    LIBSSL_DEB_NAME=libssl1.0.0_1.0.1t-1+deb8u6_${ARCH_SPEC}.deb
+
+    curl -OsSf http://http.us.debian.org/debian/pool/main/o/openssl/"${LIBSSL_DEB_NAME}"
+    curl -OsSf https://gitlinks.github.io/cl-bins/latest/"${HERMES_DEB_NAME}"
 
     sudo apt-get update
     sudo apt-get remove -y hermes-rust-ci
-    sudo dpkg -i "${DEB_NAME}"
-    sudo apt-get -fyq install
+    sudo dpkg -i "${LIBSSL_DEB_NAME}"
+    sudo dpkg -i "${HERMES_DEB_NAME}"
+    sudo apt-get -fy install
 }
 
 install_rpm() {
-    ARCH=$(get_architecture_specifier)
-    RPM_NAME=hermes-rust-ci_latest_${ARCH}.rpm
-
     cd /tmp
-    curl -OsSf https://gitlinks.github.io/cl-bins/latest/${RPM_NAME}
+
+    ARCH_X_SPEC=$(get_architecture_x_specifier)
+    RPM_NAME=hermes-rust-ci_latest_${ARCH_X_SPEC}.rpm
+
+    curl -OsSf https://gitlinks.github.io/cl-bins/latest/"${RPM_NAME}"
 
     sudo yum remove -y hermes-rust-ci
     sudo yum install --nogpgcheck -y "${RPM_NAME}"
 }
 
-get_architecture_specifier() {
-    if [ $(uname -m) = "x86_64" ]
+get_architecture() {
+    echo $(uname -m)
+}
+
+get_architecture_x_specifier() {
+    if [ $(get_architecture) == "x86_64" ]
     then
         echo "x64"
     else
         echo "x32"
+    fi
+}
+
+get_architecture_specifier() {
+    if [ $(get_architecture) == "x86_64" ]
+    then
+        echo "amd64"
+    else
+        echo "i386"
     fi
 }
 
@@ -130,18 +150,13 @@ os_debug () {
     echo
 
     echo
-    echo "openssl:"
-    openssl version || true
-    echo
-
-    echo
-    echo "libc:"
-    ldd --version || true
-    echo
-
-    echo
     echo "ldd hermes-rust-ci:"
     ldd /opt/gitlinks/hermes-rust-ci || true
+    echo
+
+    echo
+    echo "openssl:"
+    openssl version || true
     echo
 
     echo
@@ -150,8 +165,28 @@ os_debug () {
     echo
 
     echo
+    echo "dpkg-query --list libssl:"
+    dpkg-query --list | grep libssl || true
+    echo
+
+    echo
+    echo "libc:"
+    ldd --version || true
+    echo
+
+    echo
+    echo "dpkg-query --list libc6:"
+    dpkg-query --list | grep libc6 || true
+    echo
+
+    echo
     echo "ldconfig libz:"
     ldconfig -p | grep libz || true
+    echo
+
+    echo
+    echo "dpkg-query --list zlib:"
+    dpkg-query --list | grep zlib || true
     echo
 }
 
