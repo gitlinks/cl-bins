@@ -25,7 +25,7 @@ is_redhat_based() {
     command -v yum >/dev/null 2>&1
     CHECK_YUM=$?
 
-    if (( ${CHECK_YUM} == 0 ))
+    if [ "${CHECK_YUM}" -eq 0 ]
     then
         echo true
     else
@@ -45,7 +45,7 @@ install_deb() {
     CHECK_LIBSSL=$?
 
     echo "* Verifying libssl installation"
-    if (( ${CHECK_LIBSSL} == 1 ))
+    if [ "${CHECK_LIBSSL}" -eq 1 ]
     then
         echo "* libssl is not installed"
 
@@ -95,7 +95,7 @@ get_architecture() {
 }
 
 get_architecture_x_specifier() {
-    if [ $(get_architecture) == "x86_64" ]
+    if [ $(get_architecture) = "x86_64" ]
     then
         echo "x64"
     else
@@ -104,7 +104,7 @@ get_architecture_x_specifier() {
 }
 
 get_architecture_specifier() {
-    if [ $(get_architecture) == "x86_64" ]
+    if [ $(get_architecture) = "x86_64" ]
     then
         echo "amd64"
     else
@@ -231,7 +231,8 @@ else
     exit 1
 fi
 
-if [[ ${GITLINKS_DEBUG} -eq 1 ]]
+DEBUG_VALUE=${GITLINKS_DEBUG:-0}
+if [ "${DEBUG_VALUE}" -eq 1 ]
 then
     os_debug
 fi
