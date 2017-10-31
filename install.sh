@@ -1,10 +1,8 @@
 #!/bin/sh
 
-echo
-echo "* Installing Gitlinks CLI, Hermes"
-echo
-
 SCRIPT_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+
+LATEST_VERSION=$(curl -sS https://gitlinks.github.io/cl-bins/latest/version)
 
 is_debian_based() {
     command -v dpkg >/dev/null 2>&1
@@ -33,18 +31,38 @@ is_redhat_based() {
     fi
 }
 
+handle_deb() {
+    echo "* Checking current hermes-rust-ci installation"
+    dpkg-query --show hermes-rust-ci >/dev/null 2>&1
+    CHECK_INSTALLED=$?
+
+    if [ "${CHECK_INSTALLED}" -eq 0 ]
+    then
+        CURRENT_VERSION=$(dpkg-query --show hermes-rust-ci | cut -f2)
+        echo "* hermes-rust-ci is installed in version '${CURRENT_VERSION}' (latest = '${LATEST_VERSION}')"
+
+        if [ "${CURRENT_VERSION}" = "${LATEST_VERSION}" ]
+        then
+            echo "* hermes-rust-ci is already installed in the latest version"
+        else
+            echo "* hermes-rust-ci will be updated to the latest version"
+            install_deb
+        fi
+    else
+        echo "* hermes-rust-ci is not installed"
+        install_deb
+    fi
+}
+
 install_deb() {
     cd /tmp
 
-    sudo apt-get update
-
-    echo "* Removing old hermes-rust-ci installations"
-    sudo apt-get remove -y hermes-rust-ci
-
-    dpkg-query --list libssl1.0.0
-    CHECK_LIBSSL=$?
+    sudo apt-get -qq update
 
     echo "* Verifying libssl installation"
+    dpkg-query --show libssl1.0.0 >/dev/null 2>&1
+    CHECK_LIBSSL=$?
+
     if [ "${CHECK_LIBSSL}" -eq 1 ]
     then
         echo "* libssl is not installed"
@@ -68,10 +86,34 @@ install_deb() {
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/"${DEB_NAME}"
 
     echo "* Installing hermes-rust-ci"
-    sudo dpkg -i "${DEB_NAME}"
+    sudo dpkg -i "${DEB_NAME}" >/dev/null
 
     echo "* Installing other hermes-rust-ci dependencies"
-    sudo apt-get -fy install
+    sudo apt-get -fyqq install
+}
+
+handle_rpm() {
+    echo "* Checking current hermes-rust-ci installation"
+
+    rpm -q --queryformat "%{VERSION}" hermes-rust-ci >/dev/null 2>&1
+    CHECK_INSTALLED=$?
+
+    if [ "${CHECK_INSTALLED}" -eq 0 ]
+    then
+        CURRENT_VERSION=$(rpm -q --queryformat "%{VERSION}" hermes-rust-ci)
+        echo "* hermes-rust-ci is installed in version '${CURRENT_VERSION}' (latest = '${LATEST_VERSION}')"
+
+        if [ "${CURRENT_VERSION}" = "${LATEST_VERSION}" ]
+        then
+            echo "* hermes-rust-ci is already installed in the latest version"
+        else
+            echo "* hermes-rust-ci will be updated to the latest version"
+            install_rpm
+        fi
+    else
+        echo "* hermes-rust-ci is not installed"
+        install_rpm
+    fi
 }
 
 install_rpm() {
@@ -83,11 +125,8 @@ install_rpm() {
     echo "* Downloading hermes-rust-ci"
     curl -OsSf https://gitlinks.github.io/cl-bins/latest/"${RPM_NAME}"
 
-    echo "* Removing old hermes-rust-ci installations"
-    sudo yum remove -y hermes-rust-ci
-
     echo "* Installing hermes-rust-ci"
-    sudo yum install --nogpgcheck -y "${RPM_NAME}"
+    sudo yum install --nogpgcheck -qy "${RPM_NAME}"
 }
 
 get_architecture() {
@@ -216,14 +255,20 @@ os_debug () {
     echo
 }
 
+echo
+echo "*"
+echo "*" "Installing Gitlinks CLI, Hermes"
+echo "*"
+echo
+
 if [ $(is_debian_based) = true ]
 then
-    echo "* Detected debian-based OS. Installing using dpkg and apt-get"
-    install_deb
+    echo "* Detected debian-based OS"
+    handle_deb
 elif [ $(is_redhat_based) = true ]
 then
-    echo "* Detected redhat-based OS. Installing using yum"
-    install_rpm
+    echo "* Detected redhat-based OS"
+    handle_rpm
 else
     >&2 echo "* Failed to determine OS type!"
     >&2 echo "* Expected dpkg and apt-get for 'debian-based' systems"
@@ -238,3 +283,9 @@ then
 fi
 
 check_installation
+
+echo
+echo "*"
+echo "*" "Installation finished"
+echo "*"
+echo
