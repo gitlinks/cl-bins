@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 echo
 echo "Running Gitlinks CLI, Hermes"
