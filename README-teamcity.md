@@ -23,16 +23,16 @@ Default Teamcity configuration may not allow it, though.
 1. specify permissions for user `tcagent` (replace "tcagent" with your user name from step #1 if it's different!)
 	* for redhat-based OS:
 	```
-	cat <<EOT > /etc/sudoers.d/jenkins
+	cat <<EOT > /etc/sudoers.d/teamcity
 	tcagent ALL=(ALL) NOPASSWD: $(which yum)
-	Defaults:jenkins !requiretty
+	Defaults:tcagent !requiretty
 	EOT
 	```
 	* for debian-based OS:
 	```
-	cat <<EOT > /etc/sudoers.d/jenkins
+	cat <<EOT > /etc/sudoers.d/teamcity
 	tcagent ALL=(ALL) NOPASSWD: $(which dpkg) , $(which apt-get)
-	Defaults:jenkins !requiretty
+	Defaults:tcagent !requiretty
 	EOT
 	```
 1. you're done!
